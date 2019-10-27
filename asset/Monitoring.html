@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+  <title>Bengkel Internet Of Things</title>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-info">
+    <img src="img/Telnet.png" width="30px" height="35px">
+    <a class="navbar-brand" href="index.html"> IoT WEB SERVER</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="index.html">Home<span class="sr-only">(current)</span></a>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Controlling
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="Controlling.html">RGB LED</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Monitoring
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="Monitoring.html">Temperature and Humidity</a>
+            <a class="dropdown-item" href="graph.html">Graph</a>
+          </div>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Type here .." aria-label="Search">
+        <button class="btn btn-outline-primary bg-light my-2 my-sm-0" type="submit">Search</button>
+      </form>
+    </div>
+  </nav>
+</head>
+
+<body>
+
+  <br>
+  <br>
+  <br>
+
+  <!--Monitoring-->
+  <section class="monitoring" id="monitoring">
+    <div class="container">
+     
+        <div class="col-sm-12">
+          <h2 class="text-center">Telnet's Temperature</h2>
+          <hr>
+        </div>
+     
+    </div> 
+
+    <div class="row container">
+     <div class="col-sm-6 text-center" >
+       <img src="img/Temp.png" class="img-responsive center-block" width="300" height="400">
+     </div>
+     <div class="col-sm-6">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="card text-center">
+            <div class="card-body">
+              <h1 class="card-title bg-primary">Suhu Saat Ini</h1>
+              <h2 id="suhu" class="card-text">&degC</h2>
+            </div>
+            <div class="card-body row">
+              <h1 class="card-title bg-primary">Kelembaban Saat Ini</h1>
+              <h2 id="humidity" class="card-text">%</h2>
+            </div>
+          </div>  
+        </div>
+      </div>  
+      
+    </div>
+
+  </div>
+
+</section>
+
+</body>
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.2.1/firebase.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.2.1/firebase-analytics.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyASkLgmd7eceF3zFPIEaNwq_PE1PNlYQ1g",
+    authDomain: "monitoring-b2115.firebaseapp.com",
+    databaseURL: "https://monitoring-b2115.firebaseio.com",
+    projectId: "monitoring-b2115",
+    storageBucket: "monitoring-b2115.appspot.com",
+    messagingSenderId: "927776358153",
+    appId: "1:927776358153:web:4efff47c8d4c806c0f5dd8",
+    measurementId: "G-K3Y9KDCVM5"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+
+
+  const fbase = firebase.database().ref("monitoring/suhu");
+  fbase.on("value",snap=>{
+    document.getElementById("suhu").innerText=snap.val();
+  });
+
+  
+  const fbase2 = firebase.database().ref("monitoring/humidity");
+  fbase2.on("value",snap=>{
+    document.getElementById("humidity").innerText=snap.val();
+  });
+</script>
+</html>
